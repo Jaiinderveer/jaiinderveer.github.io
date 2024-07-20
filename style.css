@@ -14,6 +14,10 @@ body {
     margin: 0;
     padding: 20px;
     background-color: #f4f4f4;
+    background: 
+        url('https://upload.wikimedia.org/wikipedia/commons/5/5c/Guru_Nanak_Dev_Engineering_College%2C_Ludhiana%2C_Punjab%2C_India_9.jpg') no-repeat center center fixed, 
+        url('https://images.shiksha.com/mediadata/images/1519122882phpRESgjV.png') no-repeat bottom center;
+    background-size: cover, contain;
 }
 .container {
     max-width: 800px;
