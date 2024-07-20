@@ -82,3 +82,18 @@ th {
     word-wrap: break-word; /* Ensures long words break and wrap */
     overflow-wrap: break-word; /* Ensures long words break and wrap */
 }
+.link-section {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .link-section a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .link-section a:hover {
+            text-decoration: underline;
+        }
