@@ -1,67 +1,67 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
-
 body {
-    background-color: #333;
-    color: #fff;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
+    background-color: #121212;
+    color: #fff;
+    line-height: 1.6;
 }
 
 main {
-    width: 90%;
     max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2rem;
+}
+
+.content-container {
     background-color: #444;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    margin: 20px;
-}
-
-h1, h2 {
-    color: #f39c12;
     margin-bottom: 20px;
-    text-align: center;
 }
 
-p {
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-a {
-    color: #3498db;
+.link-section a {
+    color: #4db8ff;
     text-decoration: none;
 }
 
-a:hover {
+.link-section a:hover {
     text-decoration: underline;
+}
+
+.table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+    background-color: #555;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
     color: #fff;
     font-size: 1rem;
+    min-width: 600px;
 }
 
 th, td {
-    border: 1px solid #fff;
     padding: 10px;
     text-align: center;
+    border: 1px solid #fff;
 }
 
 th {
-    background-color: #555;
+    background-color: #444;
+    font-weight: bold;
 }
 
 tr:nth-child(even) {
@@ -70,34 +70,36 @@ tr:nth-child(even) {
 
 .total td {
     font-weight: bold;
-    background-color: #555;
+    background-color: #444;
 }
 
-.certificate-container {
-    margin-top: 30px;
+p {
+    font-size: 1rem;
     text-align: center;
+    margin-top: 10px;
+    color: #f39c12;
 }
 
 .certificate-container img {
     max-width: 100%;
-    height: auto;
-    margin: 15px 0;
-    border: 2px solid #fff;
-    border-radius: 5px;
+    display: block;
+    margin: 20px auto;
 }
 
 .certificate-description {
-    margin-top: 10px;
-    font-style: italic;
+    margin: 0 auto;
+    text-align: justify;
+    max-width: 800px;
+    padding: 10px;
 }
 
 @media (max-width: 768px) {
-    main {
-        padding: 10px;
-    }
-
     table {
         font-size: 0.9rem;
+    }
+
+    th, td {
+        padding: 8px;
     }
 }
 
@@ -107,10 +109,6 @@ tr:nth-child(even) {
     }
 
     th, td {
-        padding: 5px;
-    }
-
-    p {
-        font-size: 0.9rem;
+        padding: 6px;
     }
 }
