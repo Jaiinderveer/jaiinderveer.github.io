@@ -11,7 +11,7 @@ html, body {
     background: url('../images/profile.jpg') no-repeat center center fixed;
     background-size: cover;
     color: #fff;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
 }
 
 body {
@@ -43,7 +43,7 @@ main {
 .link-section a {
     color: #3498db;
     text-decoration: none;
-    word-break: break-word; /* Handle long URLs on smaller screens */
+    word-break: break-word;
 }
 
 .link-section a:hover {
@@ -102,6 +102,7 @@ th {
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow-x: auto;
 }
 
 .table-container th, .table-container td {
@@ -123,7 +124,6 @@ th {
     background-color: #666;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .heading {
         font-size: 1.5rem;
@@ -170,5 +170,9 @@ th {
 
     .certificate-container img {
         max-width: 90%;
+    }
+
+    .table-container {
+        margin: 10px auto;
     }
 }
