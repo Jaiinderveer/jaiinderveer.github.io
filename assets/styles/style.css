@@ -4,190 +4,109 @@
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
 }
+
 html, body {
     height: 100%;
     width: 100%;
-    background: url('../images/profile.jpg') no-repeat center center fixed; /* Set profile image as background */
-    background-size: cover; /* Ensure the background covers the entire page */
-    color: #fff; /* Change text color to white for better contrast */
-    position: relative; /* Ensure the pseudo-element is positioned relative to the body */
+    background: url('../images/profile.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
 }
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #222;
-    color: #fff;
     margin: 0;
     padding: 0;
 }
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  /* Semi-transparent background covering the whole page */
-    z-index: -1; /* Ensure it is behind all other content */
-}
-header {
-    text-align: center;
-    padding: 20px;
-    background-color: transparent; /* Transparent background for header */
-    color: #fff;
-}
+
 .heading {
     text-align: center;
     font-size: 2em;
     margin-bottom: 20px;
     color: #f39c12;
 }
-.intro-text {
-    font-size: 1.2rem;
-}
-nav {
-    margin-top: 10px;
-}
+
 main {
     padding: 20px;
-    min-height: 100vh; /* Ensure it covers the entire viewport height */
+    min-height: 100vh;
 }
-.content-wrapper {
-    padding: 20px;
-    border-radius: 10px; /* Rounded corners for a modern look */
-    background-color: transparent; /* Transparent background for content wrapper */
-}
-.section-heading {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
+
 .content-container {
     background-color: #333;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #e50914;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-}
-button:hover {
-    background-color: #f40612;
-}
+
 .link-section a {
     color: #3498db;
     text-decoration: none;
 }
+
 .link-section a:hover {
     text-decoration: underline;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    color: #fff;
 }
+
 table, th, td {
-    border: 1px solid #fff; /* Change border color to white for better contrast */
+    border: 1px solid #fff;
 }
+
 th {
     background-color: #333;
     color: #fff;
 }
+
 .total {
     font-weight: bold;
 }
+
 .certificate-container {
     margin-bottom: 40px;
-    text-align: center; /* Center align the certificate container */
-    background-color: transparent; /* Remove background behind certificates */
+    text-align: center;
 }
+
 .certificate-container img {
     width: 100%;
-    max-width: 600px; /* Adjust max-width to ensure the image scales properly */
+    max-width: 600px;
     height: auto;
     display: block;
-    margin: 0 auto 10px auto; /* Center the image and add bottom margin */
-}
-.content-section {
-    display: none; /* Hide all sections by default */
+    margin: 0 auto 10px auto;
 }
 
 .certificate-description {
     font-style: italic;
 }
 
-.certificate-space {
-    margin-top: 20px;
-    display: block; /* Ensure it is a block element to apply margin */
-}
-
-.profile-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Ensure it is behind all other content */
-}
-
-.profile-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-     /* Semi-transparent background */
-    z-index: 1;
-}
-
-.profile-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensure the image covers the entire container */
-    z-index: 0;
-    position: relative;
-}
-
 .table-container {
     margin: 20px auto;
     width: 80%;
-    background-color: #444; /* Dark background color */
+    background-color: #444;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.table-container table {
-    width: 100%;
-    border-collapse: collapse;
-    color: #fff; /* White text color */
-}
-
 .table-container th, .table-container td {
     padding: 10px;
     text-align: center;
-    border: 1px solid #555; /* Border color */
+    border: 1px solid #555;
 }
 
 .table-container th {
-    background-color: #555; /* Header background color */
+    background-color: #555;
     font-weight: bold;
 }
 
 .table-container tr:nth-child(even) {
-    background-color: #333; /* Alternate row background color */
+    background-color: #333;
 }
 
 .table-container .total {
-    font-weight: bold;
-    background-color: #666; /* Total row background color */
+    background-color: #666;
 }
