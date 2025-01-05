@@ -105,6 +105,12 @@ th {
     overflow-x: auto;
 }
 
+.table-container table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+}
+
 .table-container th, .table-container td {
     padding: 10px;
     text-align: center;
@@ -152,6 +158,12 @@ th {
     .table-container {
         padding: 10px;
     }
+
+    .table-container table {
+        font-size: 0.9rem;
+        display: block;
+        overflow-x: auto;
+    }
 }
 
 @media (max-width: 480px) {
@@ -174,5 +186,11 @@ th {
 
     .table-container {
         margin: 10px auto;
+    }
+
+    .table-container table {
+        font-size: 0.8rem;
+        display: block;
+        overflow-x: auto;
     }
 }
