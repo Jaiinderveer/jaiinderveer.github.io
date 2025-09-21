@@ -4,6 +4,9 @@
 
 // Disable browser shortcuts and overlays
 document.addEventListener('DOMContentLoaded', () => {
+    // Add js-loaded class to enable animations
+    document.body.classList.add('js-loaded');
+    
     // Allow right-click context menu (removed prevention)
     
     // Prevent common browser shortcuts that might cause overlays
