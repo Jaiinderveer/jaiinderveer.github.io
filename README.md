@@ -1,20 +1,20 @@
-# 🌟 Cyberpunk Portfolio
+# 🌟 Jaiinderveer Singh
 
-A futuristic, dark-themed portfolio website with cyberpunk aesthetics featuring:
+A modern, dark-themed student website featuring:
 
 ## ✨ Features
 
-- **Dark Cyberpunk Theme** - Deep black background with neon cyan, hot pink, and electric blue accents
+- **Modern Dark Theme** - Clean black background with cyan and blue accents
 - **Responsive Design** - Optimized for desktop, tablet, and mobile devices
 - **Smooth Animations** - Fade-in effects and scroll-triggered animations
 - **Interactive Elements** - Scroll progress bar and dynamic navigation
-- **Certificate Gallery** - Showcasing achievements and certifications
-- **Modern Technologies** - HTML5, CSS3, and vanilla JavaScript
+- **Achievement Gallery** - Showcasing academic certifications and accomplishments
+- **Clean Code** - HTML5, CSS3, and vanilla JavaScript
 
 ## 🎨 Design Elements
 
-- Glowing neon borders and text effects
-- Cyberpunk color scheme with CSS custom properties
+- Clean, modern styling with subtle glow effects
+- Modern color scheme with CSS custom properties
 - Smooth transitions and transform effects
 - Mobile-first responsive design
 - Intersection Observer API for scroll animations
@@ -36,16 +36,17 @@ A futuristic, dark-themed portfolio website with cyberpunk aesthetics featuring:
 
 ## 🎯 Sections
 
-- **Hero** - Introduction with cyberpunk styling
-- **About** - Personal information and background
-- **Skills** - Technical skills and expertise
-- **Certificates** - Academic and professional achievements
-- **Contact** - Get in touch information
+- **Home** - Introduction and overview
+- **About** - Personal information and academic background
+- **Skills** - Programming skills and academic focus
+- **Academics** - Academic performance
+- **Certifications** - Course certifications and achievements
+- **Contact** - Contact information
 
 ## 🌐 Live Demo
 
-Visit the live portfolio: [Your GitHub Pages URL]
+Visit the live website: [https://jaiinderveer.github.io](https://jaiinderveer.github.io)
 
 ---
 
-*Built with ❤️ and lots of caffeine*
+*Built by a BTech CSE student learning web development*

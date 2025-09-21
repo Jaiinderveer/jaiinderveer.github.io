@@ -1720,3 +1720,34 @@ main {
         filter: hue-rotate(0deg);
     }
 }
+
+/* ====================
+   SIMPLE FOOTER STYLES
+   ==================== */
+.simple-footer {
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border-glow);
+    padding: 1.5rem 0;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.simple-footer p {
+    color: var(--text-secondary);
+    margin: 0.2rem 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Mobile Footer */
+@media (max-width: 768px) {
+    .simple-footer {
+        padding: 1rem 0;
+        margin-top: 2rem;
+    }
+    
+    .simple-footer p {
+        font-size: 0.8rem;
+        padding: 0 1rem;
+    }
+}

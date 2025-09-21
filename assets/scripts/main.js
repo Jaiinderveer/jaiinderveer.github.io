@@ -1,5 +1,5 @@
 // ====================
-// CYBER PORTFOLIO INTERACTIVE SYSTEM
+// INTERACTIVE WEBSITE SYSTEM
 // ====================
 
 // Disable browser shortcuts and overlays
