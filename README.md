@@ -1,52 +1,80 @@
-# 🌟 Jaiinderveer Singh
+# Jaiinderveer Singh — Portfolio
 
-A modern, dark-themed student website featuring:
+A personal developer portfolio showcasing my work in **full-stack development, AI systems, and problem solving**. The site highlights selected projects, technical skills, education, certificates, and current development work.
 
-## ✨ Features
+## Highlights
 
-- **Modern Dark Theme** - Clean black background with cyan and blue accents
-- **Responsive Design** - Optimized for desktop, tablet, and mobile devices
-- **Smooth Animations** - Fade-in effects and scroll-triggered animations
-- **Interactive Elements** - Scroll progress bar and dynamic navigation
-- **Achievement Gallery** - Showcasing academic certifications and accomplishments
-- **Clean Code** - HTML5, CSS3, and vanilla JavaScript
+- Responsive portfolio experience
+- Selected project showcase with links to source repositories
+- Technical skills across frontend, backend, databases, and AI
+- Education, training, and achievement timeline
+- Certificate gallery
+- Direct GitHub, LinkedIn, and email links
+- Dark, modern visual design with subtle animations
 
-## 🎨 Design Elements
+## Featured Projects
 
-- Clean, modern styling with subtle glow effects
-- Modern color scheme with CSS custom properties
-- Smooth transitions and transform effects
-- Mobile-first responsive design
-- Intersection Observer API for scroll animations
+### RelayAI
+An AI-powered task delegation and calling platform built with a React frontend and FastAPI backend.
 
-## 🚀 Technologies Used
+- [Frontend](https://github.com/Jaiinderveer/relayai-frontend)
+- [Backend](https://github.com/Jaiinderveer/relayai-backend)
 
-- HTML5
-- CSS3 (Custom Properties, Flexbox, Grid)
-- JavaScript (ES6+)
-- Intersection Observer API
-- CSS Animations & Transitions
+### BookHive
+A smart library management system with a React frontend and FastAPI backend, covering library workflows and AI-assisted functionality.
 
-## 📱 Responsive Breakpoints
+- [Frontend](https://github.com/Jaiinderveer/BookHive-frontend)
+- [Backend](https://github.com/Jaiinderveer/BookHive-backend)
 
-- Desktop: 1024px+
-- Tablet: 768px - 1023px
-- Mobile: 480px - 767px
-- Small Mobile: 350px - 479px
+## Tech Stack
 
-## 🎯 Sections
+- **Languages:** C, C++, Python, JavaScript, Java
+- **Frontend:** HTML, CSS, JavaScript, React
+- **Backend:** FastAPI, REST APIs, authentication, CORS
+- **Databases:** MySQL, MongoDB
+- **AI:** LLMs, agentic AI, AI API integration, AI workflows
+- **Tools & Deployment:** Git, GitHub, VS Code, Vercel, Render
 
-- **Home** - Introduction and overview
-- **About** - Personal information and academic background
-- **Skills** - Programming skills and academic focus
-- **Academics** - Academic performance
-- **Certifications** - Course certifications and achievements
-- **Contact** - Contact information
+## Site Structure
 
-## 🌐 Live Demo
+The portfolio is organized into sections for:
 
-Visit the live website: [https://jaiinderveer.github.io](https://jaiinderveer.github.io)
+```text
+Home
+Projects
+Skills
+Journey
+Certificates
+Education
+Contact
+```
 
----
+The main site is a static frontend built directly with HTML, CSS, and JavaScript, with locally hosted visual assets and external links to project resources.
 
-*Built by a BTech CSE student learning web development*
+## Run Locally
+
+```bash
+git clone https://github.com/Jaiinderveer/jaiinderveer.github.io.git
+cd jaiinderveer.github.io
+```
+
+Open `index.html` in a browser or serve the directory using any static HTTP server.
+
+## Live Site
+
+[https://jaiinderveer.github.io](https://jaiinderveer.github.io)
+
+## Project Repositories
+
+| Project | Repository |
+| --- | --- |
+| RelayAI Frontend | [Jaiinderveer/relayai-frontend](https://github.com/Jaiinderveer/relayai-frontend) |
+| RelayAI Backend | [Jaiinderveer/relayai-backend](https://github.com/Jaiinderveer/relayai-backend) |
+| BookHive Frontend | [Jaiinderveer/BookHive-frontend](https://github.com/Jaiinderveer/BookHive-frontend) |
+| BookHive Backend | [Jaiinderveer/BookHive-backend](https://github.com/Jaiinderveer/BookHive-backend) |
+| DelegateAI | [Jaiinderveer/delegateai](https://github.com/Jaiinderveer/delegateai) |
+
+## Author
+
+**Jaiinderveer Singh**  
+B.Tech Computer Science & Engineering · GNDEC Ludhiana
