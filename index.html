@@ -1,625 +1,1038 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jaiinderveer Singh | Full-Stack & AI Developer</title>
-  <meta name="description" content="Jaiinderveer Singh — B.Tech CSE student building full-stack applications and AI-powered systems.">
-  <meta name="theme-color" content="#000000">
-  <link rel="stylesheet" href="assets/styles/future.css">
+  <title>Jaiinderveer Singh | AI Engineer & Full-Stack Developer</title>
+  <meta name="description" content="Jaiinderveer Singh — AI Engineer and Full-Stack Developer building autonomous agent workflows, real-time voice systems, and production web applications.">
+  <meta name="theme-color" content="#030712">
+
+  <!-- Favicon / Tab Identity -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="assets/styles/future.css">
 </head>
 <body>
-  <!-- Background layers -->
-  <div class="bg-grain"></div>
-  <div class="bg-grid"></div>
-  <div class="bg-gradient-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
+
+  <!-- Ambient Interactive Canvas & Background Layers -->
+  <canvas id="bg-canvas" class="bg-canvas"></canvas>
+  <div class="bg-grid-overlay"></div>
+  <div class="cursor-spotlight" id="spotlight"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="toast-notification" aria-live="polite"></div>
+
+  <!-- Command Palette Modal (Ctrl+K / Cmd+K) -->
+  <div id="cmd-palette-modal" class="cmd-modal-backdrop" aria-hidden="true">
+    <div class="cmd-modal">
+      <div class="cmd-header">
+        <i class="bi bi-search cmd-search-icon"></i>
+        <input type="text" id="cmd-input" placeholder="Type a command or jump to section..." autocomplete="off">
+        <kbd class="cmd-kbd">ESC</kbd>
+      </div>
+      <div class="cmd-body">
+        <div class="cmd-group-title">Navigation</div>
+        <button class="cmd-item" data-action="navigate" data-target="#home">
+          <i class="bi bi-house"></i> <span>Home / Hero</span> <kbd>01</kbd>
+        </button>
+        <button class="cmd-item" data-action="navigate" data-target="#projects">
+          <i class="bi bi-cpu"></i> <span>Selected Projects</span> <kbd>02</kbd>
+        </button>
+        <button class="cmd-item" data-action="navigate" data-target="#skills">
+          <i class="bi bi-layers"></i> <span>Technical Matrix</span> <kbd>03</kbd>
+        </button>
+        <button class="cmd-item" data-action="navigate" data-target="#journey">
+          <i class="bi bi-signpost-2"></i> <span>Engineering Journey</span> <kbd>04</kbd>
+        </button>
+        <button class="cmd-item" data-action="navigate" data-target="#certificates">
+          <i class="bi bi-patch-check"></i> <span>Certifications</span> <kbd>05</kbd>
+        </button>
+        <button class="cmd-item" data-action="navigate" data-target="#contact">
+          <i class="bi bi-terminal"></i> <span>Contact Command</span> <kbd>06</kbd>
+        </button>
+
+        <div class="cmd-group-title">Actions</div>
+        <button class="cmd-item" data-action="copy-email">
+          <i class="bi bi-clipboard"></i> <span>Copy Email Address</span>
+        </button>
+        <button class="cmd-item" data-action="link" data-target="https://github.com/Jaiinderveer">
+          <i class="bi bi-github"></i> <span>Open GitHub Profile</span>
+        </button>
+        <button class="cmd-item" data-action="link" data-target="https://www.linkedin.com/in/jaiinderveer-singh-282a1130b/">
+          <i class="bi bi-linkedin"></i> <span>Open LinkedIn Profile</span>
+        </button>
+      </div>
+    </div>
   </div>
 
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-container">
-      <a href="#home" class="nav-logo">
-        <span class="logo-bracket">[</span>
-        <span class="logo-text">Jaiinderveer</span>
-        <span class="logo-accent">.dev</span>
-        <span class="logo-bracket">]</span>
-      </a>
-      <div class="nav-links">
-        <a href="#work" class="nav-link">Work</a>
-        <a href="#stack" class="nav-link">Stack</a>
-        <a href="#journey" class="nav-link">Journey</a>
-        <a href="#credentials" class="nav-link">Credentials</a>
-        <a href="#contact" class="nav-link">Contact</a>
+  <!-- Certificate Image Lightbox Modal -->
+  <div id="cert-lightbox" class="cert-lightbox-backdrop" aria-hidden="true">
+    <div class="cert-lightbox-content">
+      <button class="cert-lightbox-close" id="cert-lightbox-close" aria-label="Close Lightbox">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <div class="cert-lightbox-img-wrapper">
+        <img id="lightbox-img" src="" alt="Certificate Preview">
       </div>
-      <a href="https://github.com/Jaiinderveer" target="_blank" rel="noopener" class="nav-github">
-        <i class="bi bi-github"></i>
-      </a>
+      <div class="cert-lightbox-caption">
+        <h4 id="lightbox-title">Certificate Title</h4>
+        <p id="lightbox-issuer">Issuer / Organization</p>
+      </div>
     </div>
-  </nav>
+  </div>
+
+  <!-- Top Floating Glass Navigation -->
+  <header class="header-nav">
+    <nav class="nav-pill">
+      <a href="#home" class="brand-link">
+        <span class="brand-indicator"></span>
+        <span class="brand-name">Jaiinderveer</span>
+        <span class="brand-badge">AI/SWE</span>
+      </a>
+
+      <div class="nav-menu">
+        <a href="#projects" class="nav-item"><span>01.</span> Projects</a>
+        <a href="#skills" class="nav-item"><span>02.</span> Matrix</a>
+        <a href="#journey" class="nav-item"><span>03.</span> Journey</a>
+        <a href="#certificates" class="nav-item"><span>04.</span> Credentials</a>
+        <a href="#contact" class="nav-item"><span>05.</span> Contact</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="cmd-trigger-btn" id="cmd-trigger" title="Command Palette (Ctrl+K)">
+          <i class="bi bi-command"></i>
+          <span class="cmd-trigger-text">Search</span>
+          <kbd>⌘K</kbd>
+        </button>
+        <a href="https://github.com/Jaiinderveer" target="_blank" rel="noopener" class="icon-btn" title="GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+      </div>
+    </nav>
+  </header>
 
   <main>
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-      <div class="container">
-        <div class="hero-content">
-          <div class="hero-eyebrow">
-            <span class="status-indicator"></span>
-            <span class="eyebrow-text">B.Tech CSE · GNDEC Ludhiana</span>
+    <!-- HERO SECTION -->
+    <section id="home" class="hero-section">
+      <div class="section-container hero-grid">
+
+        <!-- Hero Text & Pitch -->
+        <div class="hero-intro">
+          <div class="status-badge">
+            <span class="status-dot-pulse"></span>
+            <span class="status-text">Available for AI & Software Engineering Roles</span>
+            <span class="status-sep">/</span>
+            <span class="status-meta">GNDEC '28</span>
           </div>
 
-          <h1 class="hero-title">
-            Building software that
-            <span class="title-highlight">actually works</span>
+          <h1 class="hero-headline">
+            Architecting <span class="text-glow-accent">Agentic AI</span> & Production Systems.
           </h1>
 
-          <p class="hero-description">
-            Full-stack and AI-focused CSE student building practical products, from AI agent systems to deployed web applications. Currently specializing in agentic AI workflows and production-ready full-stack systems.
+          <p class="hero-subtext">
+            I'm <strong>Jaiinderveer Singh</strong> — an AI Engineer and Full-Stack Developer specializing in autonomous agent workflows, voice synthesis pipelines, and high-reliability web applications.
           </p>
 
-          <div class="hero-stats">
-            <div class="stat-item">
-              <div class="stat-value">165+</div>
-              <div class="stat-label">DSA Problems</div>
+          <!-- Core Telemetry Stats -->
+          <div class="hero-telemetry">
+            <div class="telemetry-card">
+              <span class="telemetry-num">165+</span>
+              <span class="telemetry-label">DSA / Striver A2Z</span>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <div class="stat-value">2</div>
-              <div class="stat-label">Featured Projects</div>
+            <div class="telemetry-card">
+              <span class="telemetry-num">2026</span>
+              <span class="telemetry-label">Agentic AI Capstone</span>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <div class="stat-value">2026</div>
-              <div class="stat-label">Agentic AI</div>
+            <div class="telemetry-card">
+              <span class="telemetry-num">2</span>
+              <span class="telemetry-label">Flagship Systems</span>
             </div>
           </div>
 
-          <div class="hero-actions">
-            <a href="#work" class="btn btn-primary">
-              <span>View Work</span>
-              <i class="bi bi-arrow-right"></i>
+          <!-- Hero Action Buttons -->
+          <div class="hero-cta-group">
+            <a href="#projects" class="btn-hero-primary">
+              <span>Inspect Systems</span>
+              <i class="bi bi-arrow-down-right"></i>
             </a>
-            <a href="https://www.linkedin.com/in/jaiinderveer-singh-282a1130b/" target="_blank" rel="noopener" class="btn btn-secondary">
-              <i class="bi bi-linkedin"></i>
-              <span>LinkedIn</span>
-            </a>
-            <a href="mailto:jaiinderveersingh@gmail.com" class="btn btn-secondary">
+            <a href="mailto:jaiinderveersingh@gmail.com" class="btn-hero-secondary" id="copy-email-hero">
               <i class="bi bi-envelope"></i>
-              <span>Email</span>
+              <span>Get In Touch</span>
+            </a>
+            <a href="https://www.linkedin.com/in/jaiinderveer-singh-282a1130b/" target="_blank" rel="noopener" class="btn-hero-ghost">
+              <i class="bi bi-linkedin"></i>
             </a>
           </div>
 
-          <div class="hero-tech-stack">
-            <span class="tech-label">Primary Stack</span>
-            <div class="tech-tags">
-              <span class="tech-tag">C++</span>
-              <span class="tech-tag">React</span>
-              <span class="tech-tag">FastAPI</span>
-              <span class="tech-tag">Python</span>
+          <!-- Quick Stack Marquee -->
+          <div class="hero-stack-row">
+            <span class="stack-row-label">CORE ARSENAL:</span>
+            <div class="stack-pills">
+              <span class="stack-pill">FastAPI</span>
+              <span class="stack-pill">React</span>
+              <span class="stack-pill">Python</span>
+              <span class="stack-pill">C++</span>
+              <span class="stack-pill">ElevenLabs</span>
+              <span class="stack-pill">Twilio</span>
+              <span class="stack-pill">MongoDB</span>
             </div>
           </div>
         </div>
 
-        <div class="hero-visual">
-          <div class="profile-container">
-            <div class="profile-glow"></div>
-            <div class="profile-frame">
-              <img src="assets/images/profile.jpg" alt="Jaiinderveer Singh" class="profile-image">
+        <!-- Hero Interactive Console & HUD Visualizer -->
+        <div class="hero-hud-col">
+          <div class="hud-console-card">
+            <!-- Top Window Bar -->
+            <div class="hud-window-bar">
+              <div class="hud-dots">
+                <span class="hud-dot dot-red"></span>
+                <span class="hud-dot dot-yellow"></span>
+                <span class="hud-dot dot-green"></span>
+              </div>
+              <div class="hud-tabs">
+                <button class="hud-tab active" data-tab="profile-hud">
+                  <i class="bi bi-person-badge"></i> profile.hud
+                </button>
+                <button class="hud-tab" data-tab="interactive-terminal">
+                  <i class="bi bi-terminal-fill"></i> agent_repl.sh
+                </button>
+                <button class="hud-tab" data-tab="architecture-flow">
+                  <i class="bi bi-diagram-3"></i> relay_pipeline.v2
+                </button>
+              </div>
+              <div class="hud-status-indicator">
+                <span class="live-dot"></span> LIVE
+              </div>
             </div>
-            <div class="profile-overlay"></div>
-          </div>
 
-          <div class="floating-badge badge-1">
-            <div class="badge-icon">
-              <i class="bi bi-lightning-charge"></i>
-            </div>
-            <div class="badge-content">
-              <div class="badge-label">Currently Building</div>
-              <div class="badge-value">AI + Full-Stack</div>
-            </div>
-          </div>
+            <!-- TAB 1: Profile HUD with Modern Perspective Framing -->
+            <div class="hud-body-tab active" id="tab-profile-hud">
+              <div class="profile-hud-layout">
+                <div class="profile-portrait-frame">
+                  <div class="hud-scanline"></div>
+                  <img src="assets/images/profile.jpg" alt="Jaiinderveer Singh" class="profile-portrait-img">
+                  <div class="hud-corner-bracket top-left"></div>
+                  <div class="hud-corner-bracket top-right"></div>
+                  <div class="hud-corner-bracket bottom-left"></div>
+                  <div class="hud-corner-bracket bottom-right"></div>
+                </div>
 
-          <div class="floating-badge badge-2">
-            <div class="badge-content">
-              <div class="badge-value">CSE</div>
-              <div class="badge-label">GNDEC Ludhiana</div>
+                <div class="profile-hud-info">
+                  <div class="hud-data-row">
+                    <span class="data-key">NAME:</span>
+                    <span class="data-val">Jaiinderveer Singh</span>
+                  </div>
+                  <div class="hud-data-row">
+                    <span class="data-key">DEGREE:</span>
+                    <span class="data-val highlight">B.Tech CSE (2024–2028)</span>
+                  </div>
+                  <div class="hud-data-row">
+                    <span class="data-key">COLLEGE:</span>
+                    <span class="data-val">GNDEC Ludhiana</span>
+                  </div>
+                  <div class="hud-data-row">
+                    <span class="data-key">SPECIALIZATION:</span>
+                    <span class="data-val badge-val">Autonomous Agents & Full-Stack</span>
+                  </div>
+                  <div class="hud-data-row">
+                    <span class="data-key">RECENT ROLE:</span>
+                    <span class="data-val">Training & Placement Cell Executive</span>
+                  </div>
+
+                  <div class="hud-status-box">
+                    <div class="status-box-header">
+                      <i class="bi bi-broadcast"></i> SYSTEM STATE: <strong>DEPLOYED & READY</strong>
+                    </div>
+                    <p class="status-box-desc">
+                      Currently exploring AI orchestration paradigms, LLM memory architectures, and high-concurrency Python backends.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <!-- TAB 2: Interactive Live Agent REPL Terminal -->
+            <div class="hud-body-tab" id="tab-interactive-terminal">
+              <div class="terminal-container">
+                <div class="terminal-screen" id="terminal-output">
+                  <div class="term-line banner">⚡ JAIINDSERVEER AI AGENT RUNTIME v2.6.4</div>
+                  <div class="term-line muted">Type 'help' or click suggestions below to execute workflows.</div>
+                  <div class="term-line prompt-line">
+                    <span class="term-user">visitor@relay</span>:<span class="term-path">~/portfolio</span>$ <span class="term-cmd">whoami</span>
+                  </div>
+                  <div class="term-line out">
+                    Jaiinderveer Singh — AI Engineer & Full-Stack Developer. GNDEC Ludhiana CSE '28.
+                  </div>
+                </div>
+                <div class="terminal-input-row">
+                  <span class="term-user">visitor@relay</span>:<span class="term-path">~</span>$&nbsp;
+                  <input type="text" id="terminal-input" placeholder="Type 'projects', 'skills', 'contact', 'run relay'..." autocomplete="off">
+                </div>
+                <div class="terminal-quick-chips">
+                  <button class="term-chip" data-cmd="projects">projects</button>
+                  <button class="term-chip" data-cmd="run relay">run relay_ai</button>
+                  <button class="term-chip" data-cmd="skills">skills</button>
+                  <button class="term-chip" data-cmd="contact">contact</button>
+                  <button class="term-chip" data-cmd="clear">clear</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB 3: Architecture Diagram of Relay AI Pipeline -->
+            <div class="hud-body-tab" id="tab-architecture-flow">
+              <div class="arch-flow-container">
+                <div class="arch-flow-header">
+                  <span>RELAY AI: MULTI-MODAL AGENT WORKFLOW ARCHITECTURE</span>
+                  <span class="arch-tag">PRODUCTION PIPELINE</span>
+                </div>
+
+                <div class="arch-diagram">
+                  <div class="arch-node node-client">
+                    <i class="bi bi-phone"></i>
+                    <strong>User Request</strong>
+                    <small>Web App / Phone</small>
+                  </div>
+
+                  <div class="arch-arrow">→</div>
+
+                  <div class="arch-node node-gateway">
+                    <i class="bi bi-hdd-network"></i>
+                    <strong>FastAPI Core</strong>
+                    <small>Async Task Queue</small>
+                  </div>
+
+                  <div class="arch-arrow">→</div>
+
+                  <div class="arch-node node-ai">
+                    <i class="bi bi-robot"></i>
+                    <strong>Agent Orchestrator</strong>
+                    <small>LLM + Tool Calling</small>
+                  </div>
+
+                  <div class="arch-arrow">→</div>
+
+                  <div class="arch-node node-voice">
+                    <i class="bi bi-mic"></i>
+                    <strong>ElevenLabs + Twilio</strong>
+                    <small>Real-time Telephony</small>
+                  </div>
+                </div>
+
+                <div class="arch-details-grid">
+                  <div class="arch-detail-card">
+                    <span class="detail-metric">&lt; 280ms</span>
+                    <span class="detail-label">Voice Latency Target</span>
+                  </div>
+                  <div class="arch-detail-card">
+                    <span class="detail-metric">Async</span>
+                    <span class="detail-label">FastAPI Concurrency</span>
+                  </div>
+                  <div class="arch-detail-card">
+                    <span class="detail-metric">MongoDB</span>
+                    <span class="detail-label">Transcript Store</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 01: SELECTED WORK (BENTO GRID) -->
+    <section id="projects" class="section-block">
+      <div class="section-container">
+
+        <div class="section-header-row">
+          <div>
+            <div class="section-tag-badge">
+              <span class="tag-index">01</span>
+              <span>ENGINEERED SYSTEMS</span>
+            </div>
+            <h2 class="section-main-heading">Featured Projects</h2>
+          </div>
+          <p class="section-sub-desc">
+            Production-oriented systems built with end-to-end responsibility: architecture design, database modeling, async API pipelines, and polished user experiences.
+          </p>
+        </div>
+
+        <div class="bento-projects-grid">
+
+          <!-- BENTO CARD 1: RELAY AI (FLAGSHIP) -->
+          <article class="bento-card bento-flagship">
+            <div class="bento-glow-surface"></div>
+
+            <div class="bento-header">
+              <div class="bento-badge-group">
+                <span class="badge-system-type">AI AGENT & VOICE PLATFORM</span>
+                <span class="badge-status live"><span class="pulse-dot"></span> 2026 CAPSTONE</span>
+              </div>
+              <span class="bento-index">01</span>
+            </div>
+
+            <div class="bento-body">
+              <h3 class="bento-title">Relay AI</h3>
+              <p class="bento-summary">
+                Autonomous task delegation and voice calling ecosystem that connects users, tasks, contacts, AI agents, and real phone conversations in a unified workflow.
+              </p>
+
+              <!-- Technical Highlights Grid -->
+              <div class="bento-specs-grid">
+                <div class="spec-box">
+                  <i class="bi bi-telephone-outbound text-accent"></i>
+                  <div>
+                    <strong>ElevenLabs + Twilio Voice</strong>
+                    <small>High-fidelity conversational telephone calling with dynamic audio synthesis.</small>
+                  </div>
+                </div>
+                <div class="spec-box">
+                  <i class="bi bi-cpu text-accent"></i>
+                  <div>
+                    <strong>Agent Task Delegation</strong>
+                    <small>Automated task dispatching with real-time transcript capture and status monitoring.</small>
+                  </div>
+                </div>
+                <div class="spec-box">
+                  <i class="bi bi-shield-check text-accent"></i>
+                  <div>
+                    <strong>Full-Stack Architecture</strong>
+                    <small>React interactive dashboard paired with an async FastAPI backend and MongoDB storage.</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tech Tag Pills -->
+              <div class="bento-tech-tags">
+                <span>FastAPI</span>
+                <span>Python</span>
+                <span>React</span>
+                <span>MongoDB</span>
+                <span>ElevenLabs</span>
+                <span>Twilio API</span>
+                <span>WebSockets</span>
+                <span>LLM Tool Calling</span>
+              </div>
+
+              <!-- Action Links -->
+              <div class="bento-links-row">
+                <a href="https://github.com/Jaiinderveer/relayai-frontend" target="_blank" rel="noopener" class="btn-bento-primary">
+                  <i class="bi bi-github"></i>
+                  <span>Frontend Repository</span>
+                  <i class="bi bi-arrow-up-right"></i>
+                </a>
+                <a href="https://github.com/Jaiinderveer/relayai-backend" target="_blank" rel="noopener" class="btn-bento-secondary">
+                  <i class="bi bi-github"></i>
+                  <span>Backend Repository</span>
+                  <i class="bi bi-arrow-up-right"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- BENTO CARD 2: BOOKHIVE -->
+          <article class="bento-card bento-flagship">
+            <div class="bento-glow-surface"></div>
+
+            <div class="bento-header">
+              <div class="bento-badge-group">
+                <span class="badge-system-type">FULL-STACK & AI LIBRARIAN</span>
+                <span class="badge-status"><i class="bi bi-check-circle"></i> COMPLETE SYSTEM</span>
+              </div>
+              <span class="bento-index">02</span>
+            </div>
+
+            <div class="bento-body">
+              <h3 class="bento-title">BookHive</h3>
+              <p class="bento-summary">
+                Smart Library Management System engineered as a complete enterprise web application with JWT authentication, relational data integrity, and an AI-powered assistant.
+              </p>
+
+              <!-- Technical Highlights Grid -->
+              <div class="bento-specs-grid">
+                <div class="spec-box">
+                  <i class="bi bi-stars text-accent"></i>
+                  <div>
+                    <strong>AI Librarian Assistant</strong>
+                    <small>Contextual recommendations, query resolution, and intelligent catalog search.</small>
+                  </div>
+                </div>
+                <div class="spec-box">
+                  <i class="bi bi-key text-accent"></i>
+                  <div>
+                    <strong>Role-Based Auth & Security</strong>
+                    <small>Protected operations for members and administrators with token-based workflows.</small>
+                  </div>
+                </div>
+                <div class="spec-box">
+                  <i class="bi bi-database-check text-accent"></i>
+                  <div>
+                    <strong>Relational MySQL Schema</strong>
+                    <small>Strict foreign key constraints, issue/return transactions, and analytics reporting.</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tech Tag Pills -->
+              <div class="bento-tech-tags">
+                <span>FastAPI</span>
+                <span>Python</span>
+                <span>React</span>
+                <span>MySQL</span>
+                <span>JWT Auth</span>
+                <span>REST API</span>
+                <span>AI Assistant</span>
+                <span>CORS</span>
+              </div>
+
+              <!-- Action Links -->
+              <div class="bento-links-row">
+                <a href="https://github.com/Jaiinderveer/BookHive-frontend" target="_blank" rel="noopener" class="btn-bento-primary">
+                  <i class="bi bi-github"></i>
+                  <span>Frontend Repository</span>
+                  <i class="bi bi-arrow-up-right"></i>
+                </a>
+                <a href="https://github.com/Jaiinderveer/BookHive-backend" target="_blank" rel="noopener" class="btn-bento-secondary">
+                  <i class="bi bi-github"></i>
+                  <span>Backend Repository</span>
+                  <i class="bi bi-arrow-up-right"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- SECONDARY MINI CARD 1: DELEGATE AI -->
+          <article class="bento-card bento-secondary">
+            <div class="bento-glow-surface"></div>
+            <div class="bento-header">
+              <span class="badge-system-type">FOUNDATIONAL PROTOTYPE</span>
+              <span class="bento-index">03</span>
+            </div>
+            <div class="bento-body">
+              <h3 class="bento-title-sm">Delegate AI</h3>
+              <p class="bento-summary-sm">
+                The experimental agent prototype and proof-of-concept that established the architectural foundation for Relay AI.
+              </p>
+              <div class="bento-tech-tags mini">
+                <span>Python</span>
+                <span>Agent Workflows</span>
+                <span>Automation</span>
+              </div>
+              <a href="https://github.com/Jaiinderveer/delegateai" target="_blank" rel="noopener" class="bento-text-link">
+                <span>Source Code on GitHub</span>
+                <i class="bi bi-arrow-up-right"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- SECONDARY MINI CARD 2: TRAINING DIARY -->
+          <article class="bento-card bento-secondary">
+            <div class="bento-glow-surface"></div>
+            <div class="bento-header">
+              <span class="badge-system-type">LIVE KNOWLEDGE BASE</span>
+              <span class="bento-index">04</span>
+            </div>
+            <div class="bento-body">
+              <h3 class="bento-title-sm">Agentic AI Training Diary</h3>
+              <p class="bento-summary-sm">
+                A public day-by-day technical log documenting experiments, prompt engineering patterns, tool calling tests, and architectural notes.
+              </p>
+              <div class="bento-tech-tags mini">
+                <span>Documentation</span>
+                <span>Agentic AI</span>
+                <span>GitHub Pages</span>
+              </div>
+              <a href="https://jaiinderveer.github.io/agentic-ai-training-diary/" target="_blank" rel="noopener" class="bento-text-link">
+                <span>Open Training Diary</span>
+                <i class="bi bi-arrow-up-right"></i>
+              </a>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="work" class="section">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-eyebrow">
-            <span class="section-index">01</span>
-            <span class="section-eyebrow-text">Selected Work</span>
+    <!-- SECTION 02: TECHNICAL MATRIX & ARSENAL -->
+    <section id="skills" class="section-block">
+      <div class="section-container">
+
+        <div class="section-header-row">
+          <div>
+            <div class="section-tag-badge">
+              <span class="tag-index">02</span>
+              <span>TECHNICAL ARSENAL</span>
+            </div>
+            <h2 class="section-main-heading">Skills & Capabilities</h2>
           </div>
-          <h2 class="section-title">Projects I can defend in an interview</h2>
-          <p class="section-description">
-            Not tutorial clones — projects where I had to connect systems, debug failures, and get the application working end-to-end.
+          <p class="section-sub-desc">
+            A practical, battle-tested stack centered on AI agent orchestration, Python backend scalability, and modern web interfaces.
           </p>
         </div>
 
-        <div class="projects-grid">
-          <!-- Project 1: Relay AI -->
-          <article class="project-card featured">
-            <div class="card-glow"></div>
-            <div class="project-header">
-              <span class="project-number">01</span>
-              <span class="project-type">AI SYSTEM</span>
-            </div>
+        <div class="skills-matrix-grid">
 
-            <h3 class="project-title">Relay AI</h3>
-            <p class="project-description">
-              AI-powered task delegation and calling platform connecting users, tasks, contacts, agents, and real phone conversations in one workflow.
-            </p>
-
-            <ul class="project-features">
-              <li>
-                <i class="bi bi-check2"></i>
-                <span>AI task delegation & workflow automation</span>
-              </li>
-              <li>
-                <i class="bi bi-check2"></i>
-                <span>ElevenLabs + Twilio phone calling</span>
-              </li>
-              <li>
-                <i class="bi bi-check2"></i>
-                <span>Call monitoring & conversation transcripts</span>
-              </li>
-              <li>
-                <i class="bi bi-check2"></i>
-                <span>React frontend + FastAPI backend</span>
-              </li>
-            </ul>
-
-            <div class="project-tech">
-              <span class="tech-badge">React</span>
-              <span class="tech-badge">FastAPI</span>
-              <span class="tech-badge">Python</span>
-              <span class="tech-badge">MongoDB</span>
-              <span class="tech-badge">ElevenLabs</span>
-              <span class="tech-badge">Twilio</span>
-            </div>
-
-            <div class="project-links">
-              <a href="https://github.com/Jaiinderveer/relayai-frontend" target="_blank" rel="noopener" class="project-link primary">
-                <span>Frontend</span>
-                <i class="bi bi-arrow-up-right"></i>
-              </a>
-              <a href="https://github.com/Jaiinderveer/relayai-backend" target="_blank" rel="noopener" class="project-link">
-                <span>Backend</span>
-                <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </div>
-          </article>
-
-          <!-- Project 2: BookHive -->
-          <article class="project-card featured">
-            <div class="card-glow"></div>
-            <div class="project-header">
-              <span class="project-number">02</span>
-              <span class="project-type">FULL-STACK</span>
-            </div>
-
-            <h3 class="project-title">BookHive</h3>
-            <p class="project-description">
-              Smart Library Management System built as a complete web application rather than a basic CRUD demo.
-            </p>
-
-            <ul class="project-features">
-              <li>
-                <i class="bi bi-check2"></i>
-                <span>Authentication & protected workflows</span>
-              </li>
-              <li>
-                <i class="bi bi-check2"></i>
-                <span>Book, member and issue/return management</span>
-              </li>
-              <li>
-                <i class="bi bi-check2"></i>
-                <span>Dashboard reporting and library operations</span>
-              </li>
-              <li>
-                <i class="bi bi-check2"></i>
-                <span>AI librarian assistant</span>
-              </li>
-            </ul>
-
-            <div class="project-tech">
-              <span class="tech-badge">React</span>
-              <span class="tech-badge">FastAPI</span>
-              <span class="tech-badge">Python</span>
-              <span class="tech-badge">MySQL</span>
-              <span class="tech-badge">REST API</span>
-              <span class="tech-badge">AI</span>
-            </div>
-
-            <div class="project-links">
-              <a href="https://github.com/Jaiinderveer/BookHive-frontend" target="_blank" rel="noopener" class="project-link primary">
-                <span>Frontend</span>
-                <i class="bi bi-arrow-up-right"></i>
-              </a>
-              <a href="https://github.com/Jaiinderveer/BookHive-backend" target="_blank" rel="noopener" class="project-link">
-                <span>Backend</span>
-                <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </div>
-          </article>
-        </div>
-
-        <!-- Secondary Projects -->
-        <div class="secondary-projects">
-          <article class="secondary-project">
-            <span class="secondary-number">03</span>
-            <div class="secondary-content">
-              <h4 class="secondary-title">Delegate AI</h4>
-              <p class="secondary-description">Training prototype that became the foundation for Relay AI.</p>
-            </div>
-            <a href="https://github.com/Jaiinderveer/delegateai" target="_blank" rel="noopener" class="secondary-link">
-              <span>GitHub</span>
-              <i class="bi bi-arrow-up-right"></i>
-            </a>
-          </article>
-
-          <article class="secondary-project">
-            <span class="secondary-number">04</span>
-            <div class="secondary-content">
-              <h4 class="secondary-title">Agentic AI Training Diary</h4>
-              <p class="secondary-description">Day-by-day record of experiments, assignments, and learning.</p>
-            </div>
-            <a href="https://jaiinderveer.github.io/agentic-ai-training-diary/" target="_blank" rel="noopener" class="secondary-link">
-              <span>View</span>
-              <i class="bi bi-arrow-up-right"></i>
-            </a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="stack" class="section">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-eyebrow">
-            <span class="section-index">02</span>
-            <span class="section-eyebrow-text">Technical Stack</span>
-          </div>
-          <h2 class="section-title">Tools I actually use</h2>
-          <p class="section-description">
-            Focused stack instead of listing every technology I've ever touched.
-          </p>
-        </div>
-
-        <div class="skills-grid">
-          <div class="skill-card">
-            <div class="skill-icon">
-              <i class="bi bi-code-slash"></i>
-            </div>
-            <div class="skill-content">
-              <h3 class="skill-title">Languages</h3>
-              <p class="skill-list">C · C++ · Python · JavaScript · Java</p>
-            </div>
-          </div>
-
-          <div class="skill-card">
-            <div class="skill-icon">
-              <i class="bi bi-window"></i>
-            </div>
-            <div class="skill-content">
-              <h3 class="skill-title">Frontend</h3>
-              <p class="skill-list">HTML · CSS · JavaScript · React</p>
-            </div>
-          </div>
-
-          <div class="skill-card">
-            <div class="skill-icon">
-              <i class="bi bi-server"></i>
-            </div>
-            <div class="skill-content">
-              <h3 class="skill-title">Backend</h3>
-              <p class="skill-list">FastAPI · REST APIs · Authentication · CORS</p>
-            </div>
-          </div>
-
-          <div class="skill-card">
-            <div class="skill-icon">
-              <i class="bi bi-hdd-stack"></i>
-            </div>
-            <div class="skill-content">
-              <h3 class="skill-title">Databases</h3>
-              <p class="skill-list">MySQL · MongoDB</p>
-            </div>
-          </div>
-
-          <div class="skill-card">
-            <div class="skill-icon">
+          <!-- Matrix Category 1: AI & Agentic Systems -->
+          <div class="skill-matrix-card featured-skill">
+            <div class="skill-card-icon">
               <i class="bi bi-stars"></i>
             </div>
-            <div class="skill-content">
-              <h3 class="skill-title">AI</h3>
-              <p class="skill-list">LLMs · Agentic AI · AI API integration · AI workflows</p>
+            <div class="skill-card-content">
+              <span class="skill-category-tag">SPECIALIZATION</span>
+              <h3>Agentic AI & LLMs</h3>
+              <p>Autonomous agent loops, multi-agent task routing, tool calling, prompt optimization, and AI API integrations.</p>
+              <div class="skill-pill-list">
+                <span class="matrix-pill">Agentic Workflows</span>
+                <span class="matrix-pill">LLM Tool Calling</span>
+                <span class="matrix-pill">ElevenLabs Voice</span>
+                <span class="matrix-pill">Twilio Voice API</span>
+                <span class="matrix-pill">Context & Prompting</span>
+              </div>
             </div>
           </div>
 
-          <div class="skill-card">
-            <div class="skill-icon">
+          <!-- Matrix Category 2: Backend Architecture -->
+          <div class="skill-matrix-card">
+            <div class="skill-card-icon">
+              <i class="bi bi-server"></i>
+            </div>
+            <div class="skill-card-content">
+              <span class="skill-category-tag">BACKEND</span>
+              <h3>FastAPI & Services</h3>
+              <p>Asynchronous APIs, JWT authentication, CORS handling, structured exception middleware, and service integration.</p>
+              <div class="skill-pill-list">
+                <span class="matrix-pill">FastAPI</span>
+                <span class="matrix-pill">RESTful APIs</span>
+                <span class="matrix-pill">JWT & Auth</span>
+                <span class="matrix-pill">Pydantic</span>
+                <span class="matrix-pill">Asyncio</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Matrix Category 3: Frontend Systems -->
+          <div class="skill-matrix-card">
+            <div class="skill-card-icon">
+              <i class="bi bi-window-desktop"></i>
+            </div>
+            <div class="skill-card-content">
+              <span class="skill-category-tag">FRONTEND</span>
+              <h3>React & Modern Web</h3>
+              <p>Component-driven UI, state management, reactive API hooks, and clean responsive CSS architectures.</p>
+              <div class="skill-pill-list">
+                <span class="matrix-pill">React.js</span>
+                <span class="matrix-pill">JavaScript (ES6+)</span>
+                <span class="matrix-pill">HTML5 & CSS3</span>
+                <span class="matrix-pill">Responsive Design</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Matrix Category 4: Data & Databases -->
+          <div class="skill-matrix-card">
+            <div class="skill-card-icon">
+              <i class="bi bi-database"></i>
+            </div>
+            <div class="skill-card-content">
+              <span class="skill-category-tag">DATA STORAGE</span>
+              <h3>Databases & State</h3>
+              <p>Relational normalization and NoSQL document modeling for transactional and conversational workloads.</p>
+              <div class="skill-pill-list">
+                <span class="matrix-pill">MySQL</span>
+                <span class="matrix-pill">MongoDB</span>
+                <span class="matrix-pill">Schema Design</span>
+                <span class="matrix-pill">Data Integrity</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Matrix Category 5: Languages & CS Fundamentals -->
+          <div class="skill-matrix-card">
+            <div class="skill-card-icon">
+              <i class="bi bi-code-square"></i>
+            </div>
+            <div class="skill-card-content">
+              <span class="skill-category-tag">CORE CS</span>
+              <h3>Languages & Algorithms</h3>
+              <p>Strong foundation in Data Structures, Algorithms, time-complexity analysis, and low-level fundamentals.</p>
+              <div class="skill-pill-list">
+                <span class="matrix-pill">C++</span>
+                <span class="matrix-pill">Python</span>
+                <span class="matrix-pill">C</span>
+                <span class="matrix-pill">Java</span>
+                <span class="matrix-pill">DSA (165+ solved)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Matrix Category 6: Tools & Cloud -->
+          <div class="skill-matrix-card">
+            <div class="skill-card-icon">
               <i class="bi bi-git"></i>
             </div>
-            <div class="skill-content">
-              <h3 class="skill-title">Tools & Deploy</h3>
-              <p class="skill-list">Git · GitHub · VS Code · Vercel · Render</p>
+            <div class="skill-card-content">
+              <span class="skill-category-tag">DEVOPS & WORKFLOW</span>
+              <h3>Tools & Deployment</h3>
+              <p>Version control, continuous deployment, developer tooling, and cloud production hosting.</p>
+              <div class="skill-pill-list">
+                <span class="matrix-pill">Git / GitHub</span>
+                <span class="matrix-pill">VS Code</span>
+                <span class="matrix-pill">Render</span>
+                <span class="matrix-pill">Vercel</span>
+                <span class="matrix-pill">Postman</span>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- Journey Section -->
-    <section id="journey" class="section">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-eyebrow">
-            <span class="section-index">03</span>
-            <span class="section-eyebrow-text">Development Path</span>
+    <!-- SECTION 03: ENGINEERING JOURNEY -->
+    <section id="journey" class="section-block">
+      <div class="section-container">
+
+        <div class="section-header-row">
+          <div>
+            <div class="section-tag-badge">
+              <span class="tag-index">03</span>
+              <span>CHRONOLOGY</span>
+            </div>
+            <h2 class="section-main-heading">Engineering Journey</h2>
           </div>
-          <h2 class="section-title">How the work has evolved</h2>
-          <p class="section-description">
-            From learning fundamentals to building and deploying multi-service applications.
+          <p class="section-sub-desc">
+            The progression from foundational programming to architecting multi-service agentic AI applications.
           </p>
         </div>
 
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-date">2026</div>
-              <div class="timeline-tag">AGENTIC AI</div>
-              <h3 class="timeline-title">Agentic AI with Python · Auribises Technologies</h3>
-              <p class="timeline-description">
-                Built Delegate AI as a prototype, evolved the idea into Relay AI, and completed the training with Relay AI as the project.
+        <div class="timeline-stream">
+
+          <!-- Journey Item 1 -->
+          <div class="stream-item">
+            <div class="stream-node">
+              <span class="stream-dot"></span>
+              <span class="stream-line"></span>
+            </div>
+            <div class="stream-content">
+              <div class="stream-meta">
+                <span class="stream-year">2026</span>
+                <span class="stream-tag highlight">AGENTIC AI SPECIALIZATION</span>
+              </div>
+              <h3 class="stream-title">Agentic AI with Python · Auribises Technologies</h3>
+              <p class="stream-text">
+                Designed and built <strong>Delegate AI</strong> as an exploratory prototype, subsequently scaling the paradigm into <strong>Relay AI</strong> as the comprehensive capstone platform — connecting telephony infrastructure, speech synthesis, and autonomous task workers.
               </p>
             </div>
           </div>
 
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-date">2026</div>
-              <div class="timeline-tag">FULL-STACK</div>
-              <h3 class="timeline-title">BookHive</h3>
-              <p class="timeline-description">
-                Built a smart library system while working through authentication, API integration, database workflows, CORS, and production deployment.
+          <!-- Journey Item 2 -->
+          <div class="stream-item">
+            <div class="stream-node">
+              <span class="stream-dot"></span>
+              <span class="stream-line"></span>
+            </div>
+            <div class="stream-content">
+              <div class="stream-meta">
+                <span class="stream-year">2026</span>
+                <span class="stream-tag">FULL-STACK SYSTEM</span>
+              </div>
+              <h3 class="stream-title">BookHive: Enterprise Library System</h3>
+              <p class="stream-text">
+                Architected a production-ready Smart Library platform resolving real-world engineering challenges: JWT token life cycles, complex SQL queries, cross-origin security, and an embedded AI conversational assistant.
               </p>
             </div>
           </div>
 
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-date">2026</div>
-              <div class="timeline-tag">LEADERSHIP</div>
-              <h3 class="timeline-title">Training & Placement Cell · GNDEC</h3>
-              <p class="timeline-description">
-                Executive member contributing to placement-related coordination alongside technical development.
+          <!-- Journey Item 3 -->
+          <div class="stream-item">
+            <div class="stream-node">
+              <span class="stream-dot"></span>
+              <span class="stream-line"></span>
+            </div>
+            <div class="stream-content">
+              <div class="stream-meta">
+                <span class="stream-year">2026</span>
+                <span class="stream-tag">LEADERSHIP & OPERATIONS</span>
+              </div>
+              <h3 class="stream-title">Executive Member · Training & Placement Cell (GNDEC)</h3>
+              <p class="stream-text">
+                Collaborated on university placement drives, coordinating student developer outreach, schedule logistics, and technical evaluation workflows.
               </p>
             </div>
           </div>
 
-          <div class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-date">2025</div>
-              <div class="timeline-tag">HACKATHONS</div>
-              <h3 class="timeline-title">HackNauts 2025 & college tech activities</h3>
-              <p class="timeline-description">
-                Participated in a 24-hour hackathon and continued building projects alongside academic work.
+          <!-- Journey Item 4 -->
+          <div class="stream-item">
+            <div class="stream-node">
+              <span class="stream-dot"></span>
+              <span class="stream-line"></span>
+            </div>
+            <div class="stream-content">
+              <div class="stream-meta">
+                <span class="stream-year">2025</span>
+                <span class="stream-tag">HACKATHON & PROTOTYPING</span>
+              </div>
+              <h3 class="stream-title">HackNauts 2025 (24-Hour National Hackathon)</h3>
+              <p class="stream-text">
+                Built under high time pressure alongside peers, shipping functional software prototypes and expanding practical systems engineering capability.
               </p>
             </div>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- Certificates Section -->
-    <section id="credentials" class="section">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-eyebrow">
-            <span class="section-index">04</span>
-            <span class="section-eyebrow-text">Achievements</span>
+    <!-- SECTION 04: CERTIFICATES & CREDENTIALS -->
+    <section id="certificates" class="section-block">
+      <div class="section-container">
+
+        <div class="section-header-row">
+          <div>
+            <div class="section-tag-badge">
+              <span class="tag-index">04</span>
+              <span>VERIFIED CREDENTIALS</span>
+            </div>
+            <h2 class="section-main-heading">Certifications & Accreditations</h2>
           </div>
-          <h2 class="section-title">Certificates & achievements</h2>
-          <p class="section-description">
-            The important ones stay visible, while older participation and learning certificates are still available.
+          <p class="section-sub-desc">
+            Verified proof of completion across agentic AI systems, enterprise software fundamentals, and technical hackathons. Click any card to inspect the full certificate.
           </p>
         </div>
 
-        <!-- Featured Certificate -->
-        <div class="featured-cert">
-          <div class="featured-cert-content">
-            <span class="featured-badge">LATEST · 2026</span>
+        <!-- Featured High-Impact Certificate Banner -->
+        <div class="featured-cert-hero">
+          <div class="featured-cert-details">
+            <div class="featured-cert-badge">
+              <i class="bi bi-patch-check-fill"></i> LATEST CAPSTONE · 2026
+            </div>
             <h3 class="featured-cert-title">Agentic AI with Python</h3>
-            <div class="featured-cert-meta">
-              <p><strong>Project:</strong> Relay AI</p>
-              <p>Auribises Technologies</p>
-              <p class="cert-date">22 June 2026 – 07 August 2026</p>
+            <div class="featured-cert-specs">
+              <div><strong>Project:</strong> Relay AI Platform</div>
+              <div><strong>Organization:</strong> Auribises Technologies</div>
+              <div><strong>Duration:</strong> 22 June 2026 – 07 August 2026</div>
             </div>
-            <p class="featured-cert-description">
-              Certificate of completion for the training and Relay AI project.
+            <p class="featured-cert-desc">
+              Certificate of completion awarded for intensive training in autonomous agent architectures, multi-agent communication, tool execution frameworks, and shipping Relay AI.
             </p>
-            <a href="assets/images/agentic_ai_certificate.png?v=4" target="_blank" rel="noopener" class="cert-link">
-              <span>View Certificate</span>
-              <i class="bi bi-arrow-up-right"></i>
-            </a>
+            <button class="btn-inspect-cert" data-img="assets/images/agentic_ai_certificate.png?v=4" data-title="Agentic AI with Python" data-issuer="Auribises Technologies (Project: Relay AI)">
+              <i class="bi bi-zoom-in"></i>
+              <span>Inspect Full Certificate</span>
+            </button>
           </div>
-          <div class="featured-cert-image">
-            <a href="assets/images/agentic_ai_certificate.png?v=4" target="_blank" rel="noopener">
-              <img src="assets/images/agentic_ai_certificate.png?v=4" alt="Agentic AI with Python certificate">
-            </a>
+
+          <div class="featured-cert-frame" data-img="assets/images/agentic_ai_certificate.png?v=4" data-title="Agentic AI with Python" data-issuer="Auribises Technologies">
+            <div class="cert-matte-mat">
+              <img src="assets/images/agentic_ai_certificate.png?v=4" alt="Agentic AI with Python completion certificate" class="featured-cert-thumb">
+              <div class="cert-hover-overlay">
+                <i class="bi bi-arrows-fullscreen"></i>
+                <span>Click to View High-Res</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Certificate Grid -->
-        <div class="cert-grid">
-          <article class="cert-card">
-            <a href="assets/images/excel_certificate.jpg" target="_blank" rel="noopener" class="cert-image">
-              <img src="assets/images/excel_certificate.jpg" alt="Excel for Beginners certificate">
-            </a>
-            <div class="cert-info">
-              <h4 class="cert-title">Excel for Beginners</h4>
-              <p class="cert-issuer">Great Learning Academy</p>
-            </div>
-          </article>
+        <!-- Certificate Grid Gallery -->
+        <div class="cert-gallery-grid">
 
-          <article class="cert-card">
-            <a href="assets/images/java_certificate.jpg" target="_blank" rel="noopener" class="cert-image">
-              <img src="assets/images/java_certificate.jpg" alt="Java Programming certificate">
-            </a>
-            <div class="cert-info">
-              <h4 class="cert-title">Java Programming</h4>
-              <p class="cert-issuer">Coursera</p>
+          <div class="cert-grid-card" data-img="assets/images/excel_certificate.jpg" data-title="Excel for Beginners" data-issuer="Great Learning Academy">
+            <div class="cert-card-mat">
+              <img src="assets/images/excel_certificate.jpg" alt="Excel for Beginners certificate" loading="lazy">
+              <div class="cert-expand-icon"><i class="bi bi-zoom-in"></i></div>
             </div>
-          </article>
+            <div class="cert-card-meta">
+              <h4>Excel for Beginners</h4>
+              <p>Great Learning Academy</p>
+            </div>
+          </div>
 
-          <article class="cert-card">
-            <a href="assets/images/htcss.png" target="_blank" rel="noopener" class="cert-image">
-              <img src="assets/images/htcss.png" alt="CSS certificate">
-            </a>
-            <div class="cert-info">
-              <h4 class="cert-title">How To CSS</h4>
-              <p class="cert-issuer">Codekaro</p>
+          <div class="cert-grid-card" data-img="assets/images/java_certificate.jpg" data-title="Java Programming" data-issuer="Coursera">
+            <div class="cert-card-mat">
+              <img src="assets/images/java_certificate.jpg" alt="Java Programming certificate" loading="lazy">
+              <div class="cert-expand-icon"><i class="bi bi-zoom-in"></i></div>
             </div>
-          </article>
+            <div class="cert-card-meta">
+              <h4>Java Programming</h4>
+              <p>Coursera</p>
+            </div>
+          </div>
 
-          <article class="cert-card">
-            <a href="assets/images/ISTE_Certificate.jpg" target="_blank" rel="noopener" class="cert-image">
-              <img src="assets/images/ISTE_Certificate.jpg" alt="ISTE Expert Talk certificate">
-            </a>
-            <div class="cert-info">
-              <h4 class="cert-title">Expert Talk Participation</h4>
-              <p class="cert-issuer">ISTE Student Chapter · GNDEC</p>
+          <div class="cert-grid-card" data-img="assets/images/htcss.png" data-title="How To CSS" data-issuer="Codekaro">
+            <div class="cert-card-mat">
+              <img src="assets/images/htcss.png" alt="How To CSS certificate" loading="lazy">
+              <div class="cert-expand-icon"><i class="bi bi-zoom-in"></i></div>
             </div>
-          </article>
+            <div class="cert-card-meta">
+              <h4>How To CSS</h4>
+              <p>Codekaro</p>
+            </div>
+          </div>
 
-          <article class="cert-card">
-            <a href="assets/images/TAC.jpg" target="_blank" rel="noopener" class="cert-image">
-              <img src="assets/images/TAC.jpg" alt="Hackathon certificate">
-            </a>
-            <div class="cert-info">
-              <h4 class="cert-title">Hackathon Participation</h4>
-              <p class="cert-issuer">Technical Activity Committee · GNDEC</p>
+          <div class="cert-grid-card" data-img="assets/images/ISTE_Certificate.jpg" data-title="Expert Talk Participation" data-issuer="ISTE Student Chapter · GNDEC">
+            <div class="cert-card-mat">
+              <img src="assets/images/ISTE_Certificate.jpg" alt="ISTE Expert Talk certificate" loading="lazy">
+              <div class="cert-expand-icon"><i class="bi bi-zoom-in"></i></div>
             </div>
-          </article>
+            <div class="cert-card-meta">
+              <h4>Expert Talk Participation</h4>
+              <p>ISTE Student Chapter · GNDEC</p>
+            </div>
+          </div>
 
-          <article class="cert-card">
-            <a href="assets/images/TAC2.jpg" target="_blank" rel="noopener" class="cert-image">
-              <img src="assets/images/TAC2.jpg" alt="Visionary Ventures certificate">
-            </a>
-            <div class="cert-info">
-              <h4 class="cert-title">Visionary Ventures</h4>
-              <p class="cert-issuer">Technical Activity Committee · GNDEC</p>
+          <div class="cert-grid-card" data-img="assets/images/TAC.jpg" data-title="Hackathon Participation" data-issuer="Technical Activity Committee · GNDEC">
+            <div class="cert-card-mat">
+              <img src="assets/images/TAC.jpg" alt="Hackathon certificate" loading="lazy">
+              <div class="cert-expand-icon"><i class="bi bi-zoom-in"></i></div>
             </div>
-          </article>
+            <div class="cert-card-meta">
+              <h4>Hackathon Participation</h4>
+              <p>Technical Activity Committee</p>
+            </div>
+          </div>
 
-          <article class="cert-card">
-            <a href="assets/images/IETE.jpg" target="_blank" rel="noopener" class="cert-image">
-              <img src="assets/images/IETE.jpg" alt="Electrified Quizzers certificate">
-            </a>
-            <div class="cert-info">
-              <h4 class="cert-title">Electrified Quizzers</h4>
-              <p class="cert-issuer">IETE Student's Forum · GNDEC</p>
+          <div class="cert-grid-card" data-img="assets/images/TAC2.jpg" data-title="Visionary Ventures" data-issuer="Technical Activity Committee · GNDEC">
+            <div class="cert-card-mat">
+              <img src="assets/images/TAC2.jpg" alt="Visionary Ventures certificate" loading="lazy">
+              <div class="cert-expand-icon"><i class="bi bi-zoom-in"></i></div>
             </div>
-          </article>
+            <div class="cert-card-meta">
+              <h4>Visionary Ventures</h4>
+              <p>TAC · GNDEC</p>
+            </div>
+          </div>
 
-          <article class="cert-card">
-            <a href="assets/images/hack.jpg" target="_blank" rel="noopener" class="cert-image">
-              <img src="assets/images/hack.jpg" alt="HackNauts 2025 certificate">
-            </a>
-            <div class="cert-info">
-              <h4 class="cert-title">HackNauts 2025</h4>
-              <p class="cert-issuer">24-hour national hackathon · GNDEC</p>
+          <div class="cert-grid-card" data-img="assets/images/IETE.jpg" data-title="Electrified Quizzers" data-issuer="IETE Student's Forum · GNDEC">
+            <div class="cert-card-mat">
+              <img src="assets/images/IETE.jpg" alt="Electrified Quizzers certificate" loading="lazy">
+              <div class="cert-expand-icon"><i class="bi bi-zoom-in"></i></div>
             </div>
-          </article>
+            <div class="cert-card-meta">
+              <h4>Electrified Quizzers</h4>
+              <p>IETE Student's Forum</p>
+            </div>
+          </div>
+
+          <div class="cert-grid-card" data-img="assets/images/hack.jpg" data-title="HackNauts 2025 (24-Hour Hackathon)" data-issuer="GNDEC Ludhiana">
+            <div class="cert-card-mat">
+              <img src="assets/images/hack.jpg" alt="HackNauts 2025 certificate" loading="lazy">
+              <div class="cert-expand-icon"><i class="bi bi-zoom-in"></i></div>
+            </div>
+            <div class="cert-card-meta">
+              <h4>HackNauts 2025</h4>
+              <p>24-Hour National Hackathon</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
 
-    <!-- Education Section -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-eyebrow">
-            <span class="section-index">05</span>
-            <span class="section-eyebrow-text">Education</span>
+    <!-- SECTION 05: EDUCATION -->
+    <section class="section-block">
+      <div class="section-container">
+
+        <div class="education-matrix-card">
+          <div class="edu-card-left">
+            <span class="edu-timeline-badge">2024 — 2028 · UNDERGRADUATE</span>
+            <h3 class="edu-degree">Bachelor of Technology in Computer Science & Engineering</h3>
+            <p class="edu-institution">
+              <i class="bi bi-geo-alt"></i> Guru Nanak Dev Engineering College (GNDEC), Ludhiana, Punjab
+            </p>
+          </div>
+
+          <div class="edu-card-right">
+            <span class="edu-focus-label">CORE RIGOR</span>
+            <div class="edu-focus-tags">
+              <span>Data Structures & Algorithms</span>
+              <span>Object-Oriented Architecture</span>
+              <span>Database Management Systems</span>
+              <span>Operating Systems & Networks</span>
+              <span>Agentic AI Frameworks</span>
+            </div>
           </div>
         </div>
 
-        <div class="education-card">
-          <div class="education-content">
-            <span class="education-year">2024–2028</span>
-            <h3 class="education-title">B.Tech · Computer Science & Engineering</h3>
-            <p class="education-institution">Guru Nanak Dev Engineering College, Ludhiana</p>
-          </div>
-          <div class="education-focus">
-            <span class="focus-label">FOCUS AREAS</span>
-            <p class="focus-areas">DSA · CS Fundamentals · Full-Stack · AI</p>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section section-contact">
-      <div class="container">
-        <div class="contact-card">
-          <div class="contact-content">
-            <div class="section-eyebrow">
-              <span class="section-index">06</span>
-              <span class="section-eyebrow-text">Get In Touch</span>
+    <!-- SECTION 06: CONTACT COMMAND STATION -->
+    <section id="contact" class="section-block contact-section-block">
+      <div class="section-container">
+
+        <div class="contact-command-card">
+          <div class="contact-command-content">
+            <div class="section-tag-badge">
+              <span class="tag-index">05</span>
+              <span>COMMUNICATION CHANNEL</span>
             </div>
-            <h2 class="contact-title">Let's build something useful</h2>
-            <p class="contact-description">
-              Open to software internships, AI/full-stack opportunities, hackathons, and interesting technical collaborations.
+
+            <h2 class="contact-main-heading">Let's Build Something Notable.</h2>
+            <p class="contact-sub-text">
+              I am actively seeking <strong>software engineering internships</strong>, <strong>AI developer roles</strong>, and impactful technical collaborations. Whether you have a challenging project or want to talk agent architectures, my inbox is open.
             </p>
-          </div>
-          <div class="contact-actions">
-            <a href="mailto:jaiinderveersingh@gmail.com" class="btn btn-primary">
-              <span>Email Me</span>
-              <i class="bi bi-arrow-up-right"></i>
-            </a>
-            <a href="https://github.com/Jaiinderveer" target="_blank" rel="noopener" class="btn btn-secondary">
-              <i class="bi bi-github"></i>
-              <span>GitHub</span>
-            </a>
-            <a href="https://www.linkedin.com/in/jaiinderveer-singh-282a1130b/" target="_blank" rel="noopener" class="btn btn-secondary">
-              <i class="bi bi-linkedin"></i>
-              <span>LinkedIn</span>
-            </a>
+
+            <div class="contact-methods-grid">
+              <div class="contact-method-tile" id="copy-email-box" title="Click to copy email address">
+                <div class="method-icon"><i class="bi bi-envelope-at-fill"></i></div>
+                <div class="method-info">
+                  <span class="method-label">DIRECT EMAIL (CLICK TO COPY)</span>
+                  <strong class="method-value">jaiinderveersingh@gmail.com</strong>
+                </div>
+                <i class="bi bi-copy method-action-icon"></i>
+              </div>
+
+              <a href="https://github.com/Jaiinderveer" target="_blank" rel="noopener" class="contact-method-tile">
+                <div class="method-icon"><i class="bi bi-github"></i></div>
+                <div class="method-info">
+                  <span class="method-label">SOURCE REPOSITORIES</span>
+                  <strong class="method-value">github.com/Jaiinderveer</strong>
+                </div>
+                <i class="bi bi-arrow-up-right method-action-icon"></i>
+              </a>
+
+              <a href="https://www.linkedin.com/in/jaiinderveer-singh-282a1130b/" target="_blank" rel="noopener" class="contact-method-tile">
+                <div class="method-icon"><i class="bi bi-linkedin"></i></div>
+                <div class="method-info">
+                  <span class="method-label">PROFESSIONAL NETWORK</span>
+                  <strong class="method-value">linkedin.com/in/jaiinderveer-singh</strong>
+                </div>
+                <i class="bi bi-arrow-up-right method-action-icon"></i>
+              </a>
+            </div>
           </div>
         </div>
+
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <span>© 2026 Jaiinderveer Singh</span>
-        <span class="footer-tech">Built with HTML · CSS · JavaScript</span>
+  <!-- BOTTOM STATUS & TELEMETRY FOOTER -->
+  <footer class="footer-telemetry">
+    <div class="section-container footer-flex">
+      <div class="footer-left">
+        <span class="footer-brand">Jaiinderveer.dev</span>
+        <span class="footer-copy">© 2026 Jaiinderveer Singh. Crafted with precision & performance.</span>
+      </div>
+      <div class="footer-right">
+        <div class="footer-live-status">
+          <span class="live-dot-green"></span>
+          <span id="footer-time-ist">IST UTC+5:30</span>
+        </div>
       </div>
     </div>
   </footer>
 
+  <!-- Core JavaScript Runtime -->
   <script src="assets/scripts/future.js"></script>
 </body>
 </html>
