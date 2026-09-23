@@ -11,7 +11,7 @@
   // ============================================
 
   const state = {
-    cmdPaletteOpen: false,
+    mobileNavOpen: false,
     certLightboxOpen: false,
     activeHudTab: 'profile-hud',
     terminalHistory: []
@@ -206,68 +206,55 @@
   });
 
   // ============================================
-  // COMMAND PALETTE (Ctrl+K / Cmd+K)
+  // MOBILE NAVIGATION DRAWER
   // ============================================
 
-  const cmdModal = $('#cmd-palette-modal');
-  const cmdInput = $('#cmd-input');
-  const cmdTrigger = $('#cmd-trigger');
+  const hamburgerBtn = $('#hamburger-btn');
+  const mobileDrawer = $('#mobile-nav-drawer');
+  const mobileOverlay = $('#mobile-nav-overlay');
+  const mobileCloseBtn = $('#mobile-nav-close');
+  const mobileNavItems = $$('.mobile-nav-item');
 
-  function openCommandPalette() {
-    if (!cmdModal) return;
-    state.cmdPaletteOpen = true;
-    cmdModal.classList.add('open');
-    cmdModal.setAttribute('aria-hidden', 'false');
-    setTimeout(() => cmdInput && cmdInput.focus(), 100);
+  function openMobileNav() {
+    if (!mobileDrawer || !mobileOverlay) return;
+    state.mobileNavOpen = true;
+    mobileDrawer.classList.add('open');
+    mobileOverlay.classList.add('open');
+    if (hamburgerBtn) hamburgerBtn.classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
 
-  function closeCommandPalette() {
-    if (!cmdModal) return;
-    state.cmdPaletteOpen = false;
-    cmdModal.classList.remove('open');
-    cmdModal.setAttribute('aria-hidden', 'true');
+  function closeMobileNav() {
+    if (!mobileDrawer || !mobileOverlay) return;
+    state.mobileNavOpen = false;
+    mobileDrawer.classList.remove('open');
+    mobileOverlay.classList.remove('open');
+    if (hamburgerBtn) hamburgerBtn.classList.remove('active');
+    document.body.style.overflow = '';
   }
 
-  // Keyboard shortcut
-  document.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-      e.preventDefault();
-      openCommandPalette();
-    }
-    if (e.key === 'Escape' && state.cmdPaletteOpen) {
-      closeCommandPalette();
-    }
+  if (hamburgerBtn) {
+    hamburgerBtn.addEventListener('click', openMobileNav);
+  }
+
+  if (mobileCloseBtn) {
+    mobileCloseBtn.addEventListener('click', closeMobileNav);
+  }
+
+  if (mobileOverlay) {
+    mobileOverlay.addEventListener('click', closeMobileNav);
+  }
+
+  // Close on mobile nav item click
+  mobileNavItems.forEach(item => {
+    item.addEventListener('click', closeMobileNav);
   });
 
-  if (cmdTrigger) {
-    cmdTrigger.addEventListener('click', openCommandPalette);
-  }
-
-  if (cmdModal) {
-    cmdModal.addEventListener('click', (e) => {
-      if (e.target === cmdModal) closeCommandPalette();
-    });
-  }
-
-  // Command item actions
-  $$('.cmd-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const action = item.dataset.action;
-      const target = item.dataset.target;
-
-      if (action === 'navigate' && target) {
-        closeCommandPalette();
-        smoothScrollTo(target);
-        history.pushState(null, '', target);
-      } else if (action === 'copy-email') {
-        navigator.clipboard.writeText('jaiinderveersingh@gmail.com');
-        showToast('✓ Email copied to clipboard');
-        closeCommandPalette();
-      } else if (action === 'link' && target) {
-        window.open(target, '_blank', 'noopener,noreferrer');
-        closeCommandPalette();
-      }
-    });
+  // ESC key to close mobile nav
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && state.mobileNavOpen) {
+      closeMobileNav();
+    }
   });
 
   // ============================================
@@ -467,22 +454,6 @@
       executeTerminalCommand(cmd);
       if (terminalInput) terminalInput.value = '';
     });
-  });
-
-  // ============================================
-  // COPY EMAIL FUNCTIONALITY
-  // ============================================
-
-  const copyEmailElements = ['#copy-email-hero', '#copy-email-box'];
-  copyEmailElements.forEach(selector => {
-    const el = $(selector);
-    if (el) {
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
-        navigator.clipboard.writeText('jaiinderveersingh@gmail.com');
-        showToast('✓ Email copied to clipboard: jaiinderveersingh@gmail.com');
-      });
-    }
   });
 
   // ============================================

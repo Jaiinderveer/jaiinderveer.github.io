@@ -23,6 +23,7 @@ node_modules/
 # Temporary files
 *.tmp
 *.temp
+.preview/
 
 # Executable files (keeping them out of version control)
 *.exe

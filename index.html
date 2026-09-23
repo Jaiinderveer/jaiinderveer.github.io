@@ -31,49 +31,6 @@
   <!-- Toast Notification Container -->
   <div id="toast" class="toast-notification" aria-live="polite"></div>
 
-  <!-- Command Palette Modal (Ctrl+K / Cmd+K) -->
-  <div id="cmd-palette-modal" class="cmd-modal-backdrop" aria-hidden="true">
-    <div class="cmd-modal">
-      <div class="cmd-header">
-        <i class="bi bi-search cmd-search-icon"></i>
-        <input type="text" id="cmd-input" placeholder="Type a command or jump to section..." autocomplete="off">
-        <kbd class="cmd-kbd">ESC</kbd>
-      </div>
-      <div class="cmd-body">
-        <div class="cmd-group-title">Navigation</div>
-        <button class="cmd-item" data-action="navigate" data-target="#home">
-          <i class="bi bi-house"></i> <span>Home / Hero</span> <kbd>01</kbd>
-        </button>
-        <button class="cmd-item" data-action="navigate" data-target="#projects">
-          <i class="bi bi-cpu"></i> <span>Selected Projects</span> <kbd>02</kbd>
-        </button>
-        <button class="cmd-item" data-action="navigate" data-target="#skills">
-          <i class="bi bi-layers"></i> <span>Technical Matrix</span> <kbd>03</kbd>
-        </button>
-        <button class="cmd-item" data-action="navigate" data-target="#journey">
-          <i class="bi bi-signpost-2"></i> <span>Engineering Journey</span> <kbd>04</kbd>
-        </button>
-        <button class="cmd-item" data-action="navigate" data-target="#certificates">
-          <i class="bi bi-patch-check"></i> <span>Certifications</span> <kbd>05</kbd>
-        </button>
-        <button class="cmd-item" data-action="navigate" data-target="#contact">
-          <i class="bi bi-terminal"></i> <span>Contact Command</span> <kbd>06</kbd>
-        </button>
-
-        <div class="cmd-group-title">Actions</div>
-        <button class="cmd-item" data-action="copy-email">
-          <i class="bi bi-clipboard"></i> <span>Copy Email Address</span>
-        </button>
-        <button class="cmd-item" data-action="link" data-target="https://github.com/Jaiinderveer">
-          <i class="bi bi-github"></i> <span>Open GitHub Profile</span>
-        </button>
-        <button class="cmd-item" data-action="link" data-target="https://www.linkedin.com/in/jaiinderveer-singh-282a1130b/">
-          <i class="bi bi-linkedin"></i> <span>Open LinkedIn Profile</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- Certificate Image Lightbox Modal -->
   <div id="cert-lightbox" class="cert-lightbox-backdrop" aria-hidden="true">
     <div class="cert-lightbox-content">
@@ -104,21 +61,42 @@
         <a href="#skills" class="nav-item"><span>02.</span> Matrix</a>
         <a href="#journey" class="nav-item"><span>03.</span> Journey</a>
         <a href="#certificates" class="nav-item"><span>04.</span> Credentials</a>
-        <a href="#contact" class="nav-item"><span>05.</span> Contact</a>
+        <a href="#education" class="nav-item"><span>05.</span> Education</a>
+        <a href="#contact" class="nav-item"><span>06.</span> Contact</a>
       </div>
 
       <div class="nav-actions">
-        <button class="cmd-trigger-btn" id="cmd-trigger" title="Command Palette (Ctrl+K)">
-          <i class="bi bi-command"></i>
-          <span class="cmd-trigger-text">Search</span>
-          <kbd>⌘K</kbd>
-        </button>
         <a href="https://github.com/Jaiinderveer" target="_blank" rel="noopener" class="icon-btn" title="GitHub">
           <i class="bi bi-github"></i>
         </a>
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
       </div>
     </nav>
   </header>
+
+  <!-- Mobile Navigation Menu Drawer -->
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+  <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+    <div class="mobile-nav-header">
+      <span class="brand-name">Navigation</span>
+      <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="#home" class="mobile-nav-item"><i class="bi bi-house"></i> <span>Home</span></a>
+      <a href="#projects" class="mobile-nav-item"><i class="bi bi-cpu"></i> <span>Projects</span></a>
+      <a href="#skills" class="mobile-nav-item"><i class="bi bi-layers"></i> <span>Matrix</span></a>
+      <a href="#journey" class="mobile-nav-item"><i class="bi bi-signpost-2"></i> <span>Journey</span></a>
+      <a href="#certificates" class="mobile-nav-item"><i class="bi bi-patch-check"></i> <span>Credentials</span></a>
+      <a href="#education" class="mobile-nav-item"><i class="bi bi-mortarboard"></i> <span>Education</span></a>
+      <a href="#contact" class="mobile-nav-item"><i class="bi bi-terminal"></i> <span>Contact</span></a>
+    </div>
+  </div>
 
   <main>
     <!-- HERO SECTION -->
@@ -164,7 +142,7 @@
               <span>Inspect Systems</span>
               <i class="bi bi-arrow-down-right"></i>
             </a>
-            <a href="mailto:jaiinderveersingh@gmail.com" class="btn-hero-secondary" id="copy-email-hero">
+            <a href="mailto:jaiinderveersingh@gmail.com" class="btn-hero-secondary">
               <i class="bi bi-envelope"></i>
               <span>Get In Touch</span>
             </a>
@@ -602,7 +580,7 @@
           </div>
 
           <!-- Matrix Category 2: Backend Architecture -->
-          <div class="skill-matrix-card">
+          <div class="skill-matrix-card skill-wide">
             <div class="skill-card-icon">
               <i class="bi bi-server"></i>
             </div>
@@ -938,8 +916,18 @@
     </section>
 
     <!-- SECTION 05: EDUCATION -->
-    <section class="section-block">
+    <section id="education" class="section-block">
       <div class="section-container">
+
+        <div class="section-header-row">
+          <div>
+            <div class="section-tag-badge">
+              <span class="tag-index">05</span>
+              <span>ACADEMIC BACKGROUND</span>
+            </div>
+            <h2 class="section-main-heading">Education</h2>
+          </div>
+        </div>
 
         <div class="education-matrix-card">
           <div class="edu-card-left">
@@ -972,7 +960,7 @@
         <div class="contact-command-card">
           <div class="contact-command-content">
             <div class="section-tag-badge">
-              <span class="tag-index">05</span>
+              <span class="tag-index">06</span>
               <span>COMMUNICATION CHANNEL</span>
             </div>
 
@@ -982,20 +970,18 @@
             </p>
 
             <div class="contact-methods-grid">
-              <div class="contact-method-tile" id="copy-email-box" title="Click to copy email address">
+              <a href="mailto:jaiinderveersingh@gmail.com" class="contact-method-tile">
                 <div class="method-icon"><i class="bi bi-envelope-at-fill"></i></div>
                 <div class="method-info">
-                  <span class="method-label">DIRECT EMAIL (CLICK TO COPY)</span>
-                  <strong class="method-value">jaiinderveersingh@gmail.com</strong>
+                  <strong class="method-value">Mail Me</strong>
                 </div>
-                <i class="bi bi-copy method-action-icon"></i>
-              </div>
+                <i class="bi bi-arrow-up-right method-action-icon"></i>
+              </a>
 
               <a href="https://github.com/Jaiinderveer" target="_blank" rel="noopener" class="contact-method-tile">
                 <div class="method-icon"><i class="bi bi-github"></i></div>
                 <div class="method-info">
-                  <span class="method-label">SOURCE REPOSITORIES</span>
-                  <strong class="method-value">github.com/Jaiinderveer</strong>
+                  <strong class="method-value">github</strong>
                 </div>
                 <i class="bi bi-arrow-up-right method-action-icon"></i>
               </a>
@@ -1003,8 +989,7 @@
               <a href="https://www.linkedin.com/in/jaiinderveer-singh-282a1130b/" target="_blank" rel="noopener" class="contact-method-tile">
                 <div class="method-icon"><i class="bi bi-linkedin"></i></div>
                 <div class="method-info">
-                  <span class="method-label">PROFESSIONAL NETWORK</span>
-                  <strong class="method-value">linkedin.com/in/jaiinderveer-singh</strong>
+                  <strong class="method-value">linkedin</strong>
                 </div>
                 <i class="bi bi-arrow-up-right method-action-icon"></i>
               </a>
